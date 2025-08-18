@@ -13,3 +13,39 @@ const leerCampo = (texto) => {
         });
     });
 }
+
+function menuPrincipal(){
+    console.log("1) Cargar registro de llamadas")
+    console.log("2) Exportar historial de llamadas")
+    console.log("3) Exportar listado de operadoes")
+    console.log("4) Exportar listado de clientes")
+    console.log("5) Exportar rendimiento de operadores")
+    console.log("6) Mostrar porcentaje de clasificación de llamadas")
+    console.log("7) Mostrar cantidad de llamadas por calificación")
+    console.log("8) Salir")
+}
+
+const main = async () => {
+    menuPrincipal();
+    rl.question("Seleccione una opcion: ", ejecutarOpcion)
+}
+
+const ejecutarOpcion = async (opcion) => {
+    switch(opcion){
+        case '1':
+            let archivo = await leerCampo("Ingrese el nombre del archivo: ");
+            console.log(`Cargando registro desde el arichivo: ${archivo}`)
+
+            try{
+                const contenido = fs.readFileSync(`.Entradas/${archivo}`, `utf-8`);
+                console.log("contendio del archivo: ");
+                console.log(contenido);
+                main();
+            }catch (error){
+                console.log("Error al leer el archivo");
+                main();
+            }
+    }
+}
+
+main();
