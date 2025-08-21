@@ -1,5 +1,6 @@
 import readline from 'readline';
 import fs from 'fs'
+import { type } from 'os';
 
 const rl = readline.createInterface({
     input: process.stdin,
@@ -39,19 +40,20 @@ const ejecutarOpcion = async (opcion) => {
             try{
                 const contenido = fs.readFileSync(`./Entradas/${archivo}`, `utf-8`);
                 console.log("contendio del archivo: ");
-                console.log(contenido);
+                
+                console.log(typeof contenido);
+                let lineas = contenido.split(/\r?\n/)
+                lineas = lineas.slice(1);
+
+                for(let i = 0; i < lineas.length; i++){
+                    lineas[i] = lineas[i].split(/,/);
+                    lineas[i][2] = lineas[i][2].split(/;/);
+                    lineas[i][2] = lineas[i][2].filter(e => e === 'x').length;
+                }
+
+                console.log(lineas);
                 main();
 
-            //     let lineas = contenido.split(/\r?\n/);
-            //     lineas = lineas.slice(1);
-
-            //     for(let i = 0; i<lineas.length; i++){
-            //         lineas[i] = lineas[i].split(/,/);
-            //         lineas[i][2] = lineas[i][2].split(/;/);
-            //         //ineas[i][2] = lineas[i][2].filter(e => e === 'x').length;
-            //     }
-            //     console.log(lineas);
-            //     main();
             }catch (error){
                 console.log("Error al leer el archivo");
                 main();
