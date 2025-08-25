@@ -1,6 +1,7 @@
 import readline from 'readline';
 import fs from 'fs';
 import Llamadas from './Llamadas.js';
+import generadorReporte from './Generador.js';
 
 let registroLlamadas = [];
 
@@ -35,7 +36,7 @@ const main = async () => {
 
 const ejecutarOpcion = async (opcion) => {
     switch(opcion){
-        case '1':
+        case '1':{
             let archivo = await leerCampo("Ingrese el nombre del archivo: ");
             console.log(`Cargando registro desde el arichivo: ${archivo}`)
 
@@ -55,13 +56,22 @@ const ejecutarOpcion = async (opcion) => {
                 }
 
                 console.log(lineas);
-                console.log(registroLlamadas.length);
                 main();
+                break;
 
             }catch (error){
                 console.log("Error al leer el archivo");
                 main();
+                break;
             }
+        }
+        
+        case '2':{
+            console.log("Historia de llamadas");
+            generadorReporte(registroLlamadas);
+            main();
+            break;
+        }
     }
 }
 
