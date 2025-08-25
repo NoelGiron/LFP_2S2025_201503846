@@ -22,10 +22,21 @@ const generadorReporte = (nombreArchivo, informacion) => {
                 <th>Calificación</th>
             </tr>`
 
+    informacion.forEach(registro => {
+        htmlCode += `<tr>
+            <td>${registro.id_cliente}</td>
+            <td>${registro.nombre_cliente}</td>
+            <td>${registro.id_operador}</td>
+            <td>${registro.nombre_operador}</td>
+            <td>${registro.estrellas}</td>
+        </tr>
+        `
+    })
+
     htmlCode += `</table>
         </body>
         </html>`
-        
+
     try{
         const stream = fs.createWriteStream(`./Salidas/${nombreArchivo}.html`, 'utf-8');
         stream.write(htmlCode);
