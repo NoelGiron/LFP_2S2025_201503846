@@ -68,7 +68,7 @@ const ejecutarOpcion = async (opcion) => {
         
         case '2':{
             console.log("Historia de llamadas");
-            generadorReporte(registroLlamadas);
+            generadorReporte("Reporte historial de llamadas", registroLlamadas);
             main();
             break;
         }
