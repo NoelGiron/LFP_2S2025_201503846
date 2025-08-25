@@ -3,6 +3,7 @@ import fs from 'fs';
 import Llamadas from './Llamadas.js';
 import generadorReporte from './Generador.js';
 import generadorOperadores from './generadorOperadores.js';
+import generadorClientes from './generadorClientes.js';
 
 let registroLlamadas = [];
 
@@ -77,6 +78,13 @@ const ejecutarOpcion = async (opcion) => {
         case '3':{
             console.log("Listado de Operadores")
             generadorOperadores("Listado de operadores", registroLlamadas);
+            main();
+            break;
+        }
+
+        case '4':{
+            console.log("Listado de Clientes");
+            generadorClientes("Listado de clientes", registroLlamadas);
             main();
             break;
         }
