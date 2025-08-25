@@ -1,6 +1,8 @@
 import readline from 'readline';
-import fs from 'fs'
-import { type } from 'os';
+import fs from 'fs';
+import Llamadas from './Llamadas.js';
+
+let registroLlamadas = [];
 
 const rl = readline.createInterface({
     input: process.stdin,
@@ -49,9 +51,11 @@ const ejecutarOpcion = async (opcion) => {
                     lineas[i] = lineas[i].split(/,/);
                     lineas[i][2] = lineas[i][2].split(/;/);
                     lineas[i][2] = lineas[i][2].filter(e => e === 'x').length;
+                    registroLlamadas.push( new Llamadas(lineas[i][0], lineas[i][1], lineas[i][2], lineas[i][3], lineas[i][4]));
                 }
 
                 console.log(lineas);
+                console.log(registroLlamadas.length);
                 main();
 
             }catch (error){
