@@ -4,8 +4,10 @@ import Llamadas from './Llamadas.js';
 import generadorReporte from './Generador.js';
 import generadorOperadores from './generadorOperadores.js';
 import generadorClientes from './generadorClientes.js';
+import Operadores from './Operadores.js';
 
 let registroLlamadas = [];
+let registroOperadores = [];
 
 const rl = readline.createInterface({
     input: process.stdin,
@@ -57,12 +59,32 @@ const ejecutarOpcion = async (opcion) => {
                     registroLlamadas.push( new Llamadas(lineas[i][0], lineas[i][1], lineas[i][2], lineas[i][3], lineas[i][4]));
                 }
 
+                let datosOperadores = registroLlamadas.reduce(function(acc, llamada) {
+                    let nombre = llamada.nombre_operador;
+                    if (!acc[nombre]){
+                        acc[nombre] ={
+                            id_operador: llamada.id_operador,
+                            llamadasAtendidas: 0
+                        };
+                    }
+                    acc[nombre].llamadasAtendidas += 1;
+                    return acc;
+                }, {});
+                
+                for (let nombre in datosOperadores){
+                    const data = datosOperadores[nombre];
+                    const porcentaje = (data.llamadasAtendidas / registroLlamadas.length) * 100;
+
+                    registroOperadores.push( new Operadores(data.id_operador, nombre, parseFloat(porcentaje.toFixed(2))));
+                }
+
                 console.log(lineas);
+                console.log("Lista de rendimiento de operadores: ", registroOperadores);
                 main();
                 break;
 
             }catch (error){
-                console.log("Error al leer el archivo");
+                console.log("Error al leer el archivo", error);
                 main();
                 break;
             }
@@ -85,6 +107,12 @@ const ejecutarOpcion = async (opcion) => {
         case '4':{
             console.log("Listado de Clientes");
             generadorClientes("Listado de clientes", registroLlamadas);
+            main();
+            break;
+        }
+
+        case '5':{
+            console.log("Rendimiento de cada operador");
             main();
             break;
         }
