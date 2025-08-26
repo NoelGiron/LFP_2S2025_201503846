@@ -43,13 +43,11 @@ const ejecutarOpcion = async (opcion) => {
     switch(opcion){
         case '1':{
             let archivo = await leerCampo("Ingrese el nombre del archivo: ");
-            console.log(`Cargando registro desde el arichivo: ${archivo}`)
+            console.log(`Cargando registro desde el arichivo: ${archivo} \n`)
 
             try{
                 const contenido = fs.readFileSync(`./Entradas/${archivo}`, `utf-8`);
-                console.log("contendio del archivo: ");
-                
-                console.log(typeof contenido);
+
                 let lineas = contenido.split(/\r?\n/)
                 lineas = lineas.slice(1);
 
@@ -79,8 +77,8 @@ const ejecutarOpcion = async (opcion) => {
                     registroOperadores.push( new Operadores(data.id_operador, nombre, parseFloat(rendimiento.toFixed(2))));
                 }
 
-                console.log(lineas);
-                console.log("Lista de rendimiento de operadores: ", registroOperadores);
+                // console.log(lineas);
+                // console.log("Lista de rendimiento de operadores: ", registroOperadores);
                 main();
                 break;
 
@@ -92,28 +90,28 @@ const ejecutarOpcion = async (opcion) => {
         }
         
         case '2':{
-            console.log("Historial de llamadas");
+            console.log("Se ha creado el reporte del historial de llamadas \n");
             generadorReporte("Reporte historial de llamadas", registroLlamadas);
             main();
             break;
         }
 
         case '3':{
-            console.log("Listado de Operadores")
+            console.log("Se ha creado el reporte del listado de Operadores \n")
             generadorOperadores("Listado de operadores", registroLlamadas);
             main();
             break;
         }
 
         case '4':{
-            console.log("Listado de Clientes");
+            console.log("Se ha creado el reporte del listado de Clientes \n");
             generadorClientes("Listado de clientes", registroLlamadas);
             main();
             break;
         }
 
         case '5':{
-            console.log("Rendimiento de cada operador");
+            console.log("Se ha creado el reporte del rendimiento de cada operador \n");
             generadorRendimiento("Listado de rendimiento de los operadores", registroOperadores);
             main();
             break;
@@ -144,7 +142,7 @@ const ejecutarOpcion = async (opcion) => {
         }
 
          case '7':{
-            console.log("Clasificación de Llamadas: ")
+            console.log("Se ha creado el reporte de clasificación de Llamadas \n")
 
             let contadorEstrellas = registroLlamadas.reduce(function(acc, llamada){
                 let estrellas = llamada.estrellas;
