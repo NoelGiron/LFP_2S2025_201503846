@@ -5,6 +5,7 @@ import generadorReporte from './Generador.js';
 import generadorOperadores from './generadorOperadores.js';
 import generadorClientes from './generadorClientes.js';
 import Operadores from './Operadores.js';
+import generadorRendimiento from './generadorRendimiento.js';
 
 let registroLlamadas = [];
 let registroOperadores = [];
@@ -73,9 +74,9 @@ const ejecutarOpcion = async (opcion) => {
                 
                 for (let nombre in datosOperadores){
                     const data = datosOperadores[nombre];
-                    const porcentaje = (data.llamadasAtendidas / registroLlamadas.length) * 100;
+                    const rendimiento = (data.llamadasAtendidas / registroLlamadas.length) * 100;
 
-                    registroOperadores.push( new Operadores(data.id_operador, nombre, parseFloat(porcentaje.toFixed(2))));
+                    registroOperadores.push( new Operadores(data.id_operador, nombre, parseFloat(rendimiento.toFixed(2))));
                 }
 
                 console.log(lineas);
@@ -113,6 +114,7 @@ const ejecutarOpcion = async (opcion) => {
 
         case '5':{
             console.log("Rendimiento de cada operador");
+            generadorRendimiento("Listado de rendimiento de los operadores", registroOperadores);
             main();
             break;
         }
