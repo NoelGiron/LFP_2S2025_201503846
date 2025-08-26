@@ -92,7 +92,7 @@ const ejecutarOpcion = async (opcion) => {
         }
         
         case '2':{
-            console.log("Historia de llamadas");
+            console.log("Historial de llamadas");
             generadorReporte("Reporte historial de llamadas", registroLlamadas);
             main();
             break;
@@ -117,6 +117,52 @@ const ejecutarOpcion = async (opcion) => {
             generadorRendimiento("Listado de rendimiento de los operadores", registroOperadores);
             main();
             break;
+        }
+
+        case '6':{
+            // const clasificacion = registroLlamadas.reduce((acc, llamada) => {
+            //     const estrellas = llamada[2].length;
+
+            //     if (estrellas >= 4 && estrellas <= 5) {
+            //         acc.buenas++;
+            //     }else if (estrellas >= 2 && estrellas <= 3) {
+            //         acc.medias++;
+            //     }else if (estrellas >= 0 && estrellas <= 1) {
+            //         acc.malas++;
+            //     }
+            //     return acc;
+
+            // }, {buenas: 0, medias: 0, malas: 0});
+
+            // console.log("Clasificación llamadas: ")
+            // console.log(`Buenas: ${((clasificacion.buenas / registroLlamadas.length) * 100).toFixed(2)}%`);
+            // console.log(`Medias: ${((clasificacion.medias / registroLlamadas.length) * 100).toFixed(2)}%`);
+            // console.log(`Malas: ${((clasificacion.malas / registroLlamadas.length) * 100).toFixed(2)}%`);
+            // console.log(clasificacion.buenas);
+            // main();
+            // break;
+        }
+
+         case '7':{
+            console.log("Clasificación de Llamadas: ")
+
+            let contadorEstrellas = registroLlamadas.reduce(function(acc, llamada){
+                let estrellas = llamada.estrellas;
+                if (estrellas >= 1 && estrellas <= 5){
+                    acc[estrellas] = (acc[estrellas] || 0) + 1;
+                }
+                return acc;
+            }, {});
+
+            console.log(contadorEstrellas);
+            main();
+            break;
+        }
+
+        case '8':{
+            console.log("Saliendo....")
+            rl.close();
+            return;
         }
     }
 }
