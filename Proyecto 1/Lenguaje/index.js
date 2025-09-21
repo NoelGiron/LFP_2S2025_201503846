@@ -1,3 +1,4 @@
+
 let editor;
 
 // Inicializar CodeMirror
@@ -13,58 +14,6 @@ document.addEventListener("DOMContentLoaded", function () {
         indentUnit: 4,
         tabSize: 4,
         scrollbarStyle: "native",
-        value: `TORNEO {
-  nombre: "Mega Copa Universitaria",
-  equipos: 4,
-  sede: "El Salvador"
-}
-
-EQUIPOS {
-  equipo: "Leones Dorados" [
-    jugador: "Daniel Pérez" [posicion: "DELANTERO", numero: 9, edad: 23],
-    jugador: "Roberto López" [posicion: "MEDIOCAMPO", numero: 8, edad: 22],
-    jugador: "Santiago Ramírez" [posicion: "DEFENSA", numero: 4, edad: 25],
-    jugador: "Manuel Torres" [posicion: "PORTERO", numero: 1, edad: 29]
-  ],
-  equipo: "Tiburones Azules" [
-    jugador: "Cristian Morales" [posicion: "DELANTERO", numero: 11, edad: 26],
-    jugador: "Alejandro Ruiz" [posicion: "DEFENSA", numero: 3, edad: 28]
-  ],
-  equipo: "Águilas Negras" [
-    jugador: "Javier Gómez" [posicion: "DELANTERO", numero: 7, edad: 24],
-    jugador: "Felipe Díaz" [posicion: "PORTERO", numero: 12, edad: 27]
-  ],
-  equipo: "Pumas Blancos" [
-    jugador: "Oscar Hernández" [posicion: "DELANTERO", numero: 10, edad: 20],
-    jugador: "Luis Ramírez" [posicion: "MEDIOCAMPO", numero: 6, edad: 22]
-  ]
-}
-
-ELIMINACION {
-  cuartos: [
-    partido: "Leones Dorados" vs "Tiburones Azules" [
-      resultado: "2-2",
-      goleadores: [
-        goleador: "Cristian Morales" [minuto: 12],
-        goleador: "Daniel Pérez" [minuto: 30],
-        goleador: "Alejandro Ruiz" [minuto: 60],
-        goleador: "Roberto López" [minuto: 78]
-      ]
-    ],
-    partido: "Águilas Negras" vs "Pumas Blancos" [
-      resultado: "3-1",
-      goleadores: [
-        goleador: "Javier Gómez" [minuto: 15],
-        goleador: "Oscar Hernández" [minuto: 43],
-        goleador: "Felipe Díaz" [minuto: 55],
-        goleador: "Javier Gómez" [minuto: 88]
-      ]
-    ]
-  ],
-  semifinal: [
-    partido: "Leones Dorados" vs "Águilas Negras" [resultado: "Pendiente"]
-  ]
-}`
     });
 
     setTimeout(() => {
@@ -92,12 +41,16 @@ function cargarArchivo(event) {
 }
 
 function analizarTorneo() {
-    const scanner = new Scanner(editor.getValue());
-    const contenido = document.getElementById('contendio');
+    const contenido = editor.getValue();
+    const scanner = new Scanner(contenido);
+    const resultContent= document.getElementById('resultsContent');
 
-    contenido.innerHTML = '';
+   resultContent.innerHTML = `<div class="loading">Analizando</div>`;
 
-    const tabla = document.createElement('tabla');
+    let tokenCount = 1;
+    let token = scanner.next_token();
+
+    const tabla = document.createElement('table');
     tabla.className = 'tabla-token';
     tabla.innerHTML = `
       <thead>
@@ -112,12 +65,12 @@ function analizarTorneo() {
       </thead>
       <tbody id="tokensBody"></tbody>
     `;
-    contenido.appendChild(tabla);
+
+   resultContent.innerHTML = '';
+   resultContent.appendChild(tabla);
     const tokensBody = document.getElementById('tokensBody');
 
-    let tokenCount = 1;
-    let token = scanner.next_token();
-    while(token.type !== 'EOF') {
+    while(token && token.type !== 'EOF') {
         const row = document.createElement('tr');
 
         row.innerHTML = `
@@ -128,8 +81,8 @@ function analizarTorneo() {
               token.type === 'TK_string' ? 'cadena' :
               token.type === 'TK_id' ? 'identificador' : token.type}</td>
           <td>${token.line}</td>
-          <td>${token.colum}</td>
-          <td>${token.lexeme || token.type}}</td>
+          <td>${token.column}</td>
+          <td>${token.lexeme || token.type}</td>
 
         `;
         tokensBody.appendChild(row);
