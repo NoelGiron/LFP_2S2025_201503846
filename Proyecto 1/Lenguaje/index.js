@@ -93,12 +93,57 @@ function cargarArchivo(event) {
 
 function analizarTorneo() {
     const scanner = new Scanner(editor.getValue());
-    
+    const contenido = document.getElementById('contendio');
+
+    contenido.innerHTML = '';
+
+    const tabla = document.createElement('tabla');
+    tabla.className = 'tabla-token';
+    tabla.innerHTML = `
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Token</th>
+          <th>Tipo</th>
+          <th>Linea</th>
+          <th>Columna</th>
+          <th>Lexema</th>
+        </tr>
+      </thead>
+      <tbody id="tokensBody"></tbody>
+    `;
+    contenido.appendChild(tabla);
+    const tokensBody = document.getElementById('tokensBody');
+
+    let tokenCount = 1;
     let token = scanner.next_token();
     while(token.type !== 'EOF') {
-        console.log(token);
+        const row = document.createElement('tr');
+
+        row.innerHTML = `
+          <td>${tokenCount}</td>
+          <td>${token.type}</td>
+          <td>${token.type.startsWith('KW_') ? 'palabra clave' :
+              token.type.startsWith('TK_') ? 'simbolo' :
+              token.type === 'TK_string' ? 'cadena' :
+              token.type === 'TK_id' ? 'identificador' : token.type}</td>
+          <td>${token.line}</td>
+          <td>${token.colum}</td>
+          <td>${token.lexeme || token.type}}</td>
+
+        `;
+        tokensBody.appendChild(row);
+        tokenCount++;
         token = scanner.next_token();
     }
+    const summary = document.createElement('div');
+    summary.className = 'analisis-summary';
+    summary.innerHTML = `
+      <h3>Resumen del analisis</h3>
+      <p>Total de tokens encontrados: ${tokenCount -1}</p>
+      <p>Analisis completado exitosamente</p>
+    `;
+    resultContent.appendChild(summary);
 }
 function generarReporte() {
 
