@@ -10,7 +10,12 @@ class Scanner {
             TORNEO: 'KW_torneo',
             EQUIPOS: 'KW_equipos',
             equipo: 'KW_equipo',
-            PORTERO: 'KW_portero',
+            jugador: 'KW_jugador',
+            ELIMINACION: 'KW_eliminacion',
+            fase: 'KW_fase',
+            partido: 'KW_partido',
+            goleador: 'KW_goleador',
+            Posiciones: 'KW_posiciones'
         }
     }
 

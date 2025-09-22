@@ -89,14 +89,7 @@ function analizarTorneo() {
         tokenCount++;
         token = scanner.next_token();
     }
-    const summary = document.createElement('div');
-    summary.className = 'analisis-summary';
-    summary.innerHTML = `
-      <h3>Resumen del analisis</h3>
-      <p>Total de tokens encontrados: ${tokenCount -1}</p>
-      <p>Analisis completado exitosamente</p>
-    `;
-    resultContent.appendChild(summary);
+    
 }
 function generarReporte() {
 

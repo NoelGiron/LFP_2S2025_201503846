@@ -321,3 +321,222 @@ body {
     font-size: 1.5em;
   }
 }
+
+/* tabla de tokens */
+.tabla-token {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  font-size: 13px;
+}
+
+.tabla-token th {
+  background: #2c3e50;
+  color: white;
+  padding: 14px 16px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border: none;
+}
+
+.tabla-token td {
+  padding: 12px 16px;
+  border-bottom: 1px solid #f1f3f4;
+  color: #34495e;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 12px;
+  vertical-align: top;
+}
+
+.tabla-token tr:last-child td {
+  border-bottom: none;
+}
+
+.tabla-token tr:nth-child(even) {
+  background-color: #fafbfc;
+}
+
+.tabla-token tr:hover {
+  background-color: #f8f9fa;
+}
+
+.tabla-token td:nth-child(1) { /* # Columna */
+  width: 50px;
+  text-align: center;
+  color: #7f8c8d;
+  font-weight: 600;
+}
+
+.tabla-token td:nth-child(2) { /* Token Columna */
+  width: 120px;
+  color: #e74c3c;
+  font-weight: 600;
+}
+
+.tabla-token td:nth-child(3) { /* Tipo Columna */
+  width: 120px;
+  color: #2980b9;
+  font-weight: 500;
+}
+
+.tabla-token td:nth-child(4),
+.tabla-token td:nth-child(5) { /* Línea y Columna */
+  width: 70px;
+  text-align: center;
+  color: #8e44ad;
+  font-weight: 600;
+}
+
+.tabla-token td:nth-child(6) { /* Lexema Columna */
+  color: #27ae60;
+  font-weight: 500;
+  max-width: 250px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.token-kw { /* Palabras clave */
+  color: #c0392b !important;
+  background-color: #f9ebea !important;
+}
+
+.token-symbol { /* Símbolos */
+  color: #8e44ad !important;
+  background-color: #f4ecf7 !important;
+}
+
+.token-string { /* Cadenas */
+  color: #27ae60 !important;
+  background-color: #eafaf1 !important;
+}
+
+.token-identifier { /* Identificadores */
+  color: #2980b9 !important;
+  background-color: #eaf2f8 !important;
+}
+
+.loading {
+  text-align: center;
+  padding: 40px 20px;
+  color: #7f8c8d;
+  font-size: 16px;
+  font-style: italic;
+}
+
+.analisis-summary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 20px;
+  border-radius: 8px;
+  margin-top: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.analisis-summary h3 {
+  margin: 0 0 10px 0;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.analisis-summary p {
+  margin: 5px 0;
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+
+.token-badge {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin: 2px;
+}
+
+.badge-keyword {
+  background: #f9ebea;
+  color: #c0392b;
+}
+
+.badge-symbol {
+  background: #f4ecf7;
+  color: #8e44ad;
+}
+
+.badge-string {
+  background: #eafaf1;
+  color: #27ae60;
+}
+
+.badge-identifier {
+  background: #eaf2f8;
+  color: #2980b9;
+}
+
+@media (max-width: 768px) {
+  .tabla-token {
+    font-size: 11px;
+  }
+  
+  .tabla-token th,
+  .tabla-token td {
+    padding: 10px 12px;
+  }
+  
+  .tabla-token td:nth-child(1),
+  .tabla-token td:nth-child(4),
+  .tabla-token td:nth-child(5) {
+    width: 40px;
+  }
+  
+  .tabla-token td:nth-child(2),
+  .tabla-token td:nth-child(3) {
+    width: 100px;
+  }
+}
+
+@keyframes pulse {
+  0% { opacity: 0.6; }
+  50% { opacity: 1; }
+  100% { opacity: 0.6; }
+}
+
+.loading {
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+.tabla-token-container {
+  max-height: 400px;
+  overflow-y: auto;
+  margin: 20px 0;
+  border-radius: 8px;
+  border: 1px solid #e1e5e9;
+}
+
+.tabla-token-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.tabla-token-container::-webkit-scrollbar-track {
+  background: #f1f3f4;
+  border-radius: 4px;
+}
+
+.tabla-token-container::-webkit-scrollbar-thumb {
+  background: #c1c8d0;
+  border-radius: 4px;
+}
+
+.tabla-token-container::-webkit-scrollbar-thumb:hover {
+  background: #a0a7b0;
+}
