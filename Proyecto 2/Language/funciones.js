@@ -1,3 +1,5 @@
+import { JavaToPythonTranslator } from './main.js';
+
 // funciones.js - Funciones para la interfaz web
 let translator = new JavaToPythonTranslator();
 let editor;

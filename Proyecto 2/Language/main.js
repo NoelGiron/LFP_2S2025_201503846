@@ -1,10 +1,10 @@
 // main.js - Archivo principal para la interfaz
-import Scanner from './Lenguaje/Scanner.js';
-import Parser from './Lenguaje/Parser.js';
-import PythonGenerator from './Lenguaje/PythonGenerator.js';
-import { errors } from './Lenguaje/Utils/Errors.js';
+import Scanner from './Language/Scanner.js';
+import Parser from './Language/Parser.js';
+import PythonGenerator from '../Interpreter/Generator/PythonGenerator.js';
+import { errors } from './Language/Utils/Errors.js';
 
-class JavaToPythonTranslator {
+export class JavaToPythonTranslator {
     constructor() {
         this.errors = [];
         this.tokens = [];
