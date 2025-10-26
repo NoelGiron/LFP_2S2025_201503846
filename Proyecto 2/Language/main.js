@@ -1,23 +1,23 @@
-// main.js - Archivo principal para la interfaz
+
 import Scanner from './Language/Scanner.js';
 import Parser from './Language/Parser.js';
 import PythonGenerator from '../Interpreter/Generator/PythonGenerator.js';
 import { errors } from './Language/Utils/Errors.js';
 
-export class JavaToPythonTranslator {
+class JavaToPythonTranslator {
     constructor() {
         this.errors = [];
         this.tokens = [];
     }
 
     analyze(code) {
-        // Limpiar errores anteriores
+       
         errors.length = 0;
         this.errors = [];
         this.tokens = [];
 
         try {
-            // Análisis léxico
+          
             const scanner = new Scanner(code);
             let token;
             do {
@@ -27,7 +27,7 @@ export class JavaToPythonTranslator {
                 }
             } while (token && token.type !== 'EOF');
 
-            // Análisis sintáctico y traducción
+            
             if (errors.length === 0) {
                 const parser = new Parser(new Scanner(code));
                 const ast = parser.parse();
@@ -127,5 +127,5 @@ export class JavaToPythonTranslator {
     }
 }
 
-// Exportar para uso global en la interfaz
+
 window.JavaToPythonTranslator = JavaToPythonTranslator;

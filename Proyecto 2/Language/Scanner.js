@@ -1,26 +1,27 @@
 import Character from "../Utils/Character/Character.js";
 import { errors } from "../Utils/Errors.js";
 
+
 export default class Scanner {
-    /** @type {string} Entrada completa */
+    /** @type {string}  */
     #input;
-    /** @type {number} Posición actual en el texto */
+    /** @type {number}  */
     #pos_char;
-    /** @type {string} Buffer temporal */
+    /** @type {string}  */
     #buffer;
-    /** @type {number} Línea actual */
+    /** @type {number}  */
     #char_line;
-    /** @type {number} Columna actual */
+    /** @type {number}  */
     #char_col;
-    /** @type {string} Último carácter leído */
+    /** @type {string}  */
     #next_char;
-    /** @type {boolean} Indicador de lookahead */
+    /** @type {boolean} */
     #is_look_ahead;
-    /** @type {Object.<string,string>} Palabras clave */
+    /** @type {Object.<string,string>}  */
     #keywords;
 
     /**
-     * @param {string} input - Texto de entrada a analizar.
+     * @param {string} input 
      */
     constructor(input) {
         this.#input = input.replace(/\r\n/g, '\n') + '\0';
@@ -55,9 +56,9 @@ export default class Scanner {
     }
 
     /**
-     * @description Inicializa el buffer con un carácter y actualiza posición y columna.
+     * @description 
      *
-     * @param {string} current_char - Carácter actual a agregar al buffer.
+     * @param {string} current_char 
      */
     #initBuffer(current_char) {
         this.#buffer = current_char;
@@ -66,9 +67,9 @@ export default class Scanner {
     }
 
     /**
-     * @description Agrega un carácter al buffer y actualiza posición y columna.
+     * @description 
      *
-     * @param {string} current_char - Carácter a agregar al buffer.
+     * @param {string} current_char 
      */
     #addBuffer(current_char) {
         this.#buffer += current_char;
@@ -77,16 +78,16 @@ export default class Scanner {
     }
 
     /**
-     * @description Inicia el proceso de tokenización.
+     * @description 
      *
-     * @returns {Token} Token reconocido.
+     * @returns {Token} 
      */
     next_token = () => this.#S0();
 
     /**
-     * @description Estado inicial del autómata.
+     * @description 
      *
-     * @returns {Token} Token reconocido o EOF.
+     * @returns {Token} 
      */
     #S0() {
         while((this.#next_char = this.#input[this.#pos_char]) !== '\0') {
@@ -261,7 +262,7 @@ export default class Scanner {
     }
 
     /**
-     * @returns {Token} Token reconocido. '
+     * @returns {Token} Token reconocido. 
      */
     #S4() {
         if((this.#next_char = this.#input[this.#pos_char]) !== '\'' && this.#next_char !== '\n') {

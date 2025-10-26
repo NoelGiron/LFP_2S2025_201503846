@@ -1,4 +1,4 @@
-// PythonGenerator.js - Nuevo archivo
+
 export default class PythonGenerator {
     constructor() {
         this.code = [];
@@ -28,7 +28,7 @@ export default class PythonGenerator {
     generate() {
         let finalCode = '';
         
-        // Agregar imports si existen
+      
         if (this.imports.size > 0) {
             this.imports.forEach(module => {
                 finalCode += `import ${module}\n`;
@@ -36,7 +36,7 @@ export default class PythonGenerator {
             finalCode += '\n';
         }
         
-        // Agregar el código generado
+        
         finalCode += this.code.join('\n');
         return finalCode;
     }

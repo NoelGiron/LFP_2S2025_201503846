@@ -1,4 +1,4 @@
-import { errors } from "../Utils/Errors.js";
+//import { errors } from "../Utils/Errors.js";
 import Scanner from "./Scanner.js";
 import Type from "../Interpreter/Utils/Type.js";
 // Expresiones
@@ -12,17 +12,18 @@ import InitVar from "../Interpreter/Instructions/InitVar.js";
 import MainFunc from "../Interpreter/Instructions/MainFunc.js";
 import Print from "../Interpreter/Instructions/Print.js";
 
+
 export default class Parser {
     /**
      * @type {Scanner}
      */
     #sc
 
-    /** @type {Token|null} Token actual en proceso */
+    /** @type {Token|null}  */
     #current_token
 
     /**
-     * @param {Scanner} sc - Instancia de Scanner que proporciona los tokens.
+     * @param {Scanner} sc 
      */
     constructor(sc) {
         this.#sc = sc;
@@ -33,7 +34,7 @@ export default class Parser {
     }
 
     #START() {
-        // <START> ::= 'public' 'class' ID '{' 'public' 'static' 'void' 'main' '(' 'String' '[' ']' ID ')' '{' <SENTENCIAS> '}' '}'
+        
         this.#consume('KW_public');
         this.#consume('KW_class');
         this.#consume('TK_id');
@@ -53,8 +54,8 @@ export default class Parser {
 
         let instructions = this.#SENTENCIAS();
 
-        this.#consume('TK_rbrc'); // Cierre del main
-        this.#consume('TK_rbrc'); // Cierre de la clase
+        this.#consume('TK_rbrc'); 
+        this.#consume('TK_rbrc'); 
 
         return new MainFunc(1, 1, instructions);
     }
@@ -198,13 +199,13 @@ export default class Parser {
             line: init.line,
             column: init.column,
             traducir: (env, gen) => {
-                // Traducir for a while
+             
                 init.traducir(env, gen);
                 let condition = cond.traducir(env, gen);
                 gen.addLine(`while ${condition.value}:`);
                 gen.indent();
                 body.forEach(inst => inst.traducir(env, gen));
-                // Agregar actualización
+             
                 gen.addLine(`${update.lexeme} ${updateOp.type === 'TK_inc' ? '+' : '-'}= 1`);
                 gen.dedent();
             }
@@ -257,7 +258,7 @@ export default class Parser {
     }
 
     #EXP() {
-        // <EXP> ::= <EXP2> (('==' | '!=' | '<=' | '>=' | '<' | '>') <EXP2>)*
+       
         let e1 = this.#EXP2();
 
         while(this.#match('TK_equal', 'TK_notequal', 'TK_grtequal', 'TK_lsequal', 'TK_greater', 'TK_less')) {
@@ -270,7 +271,7 @@ export default class Parser {
     }
 
     #EXP2() {
-        // <EXP2> ::= <EXP1> (('+' | '-') <EXP1>)*
+        
         let e1 = this.#EXP1();
 
         while(this.#match('TK_add', 'TK_sub')) {
@@ -283,7 +284,7 @@ export default class Parser {
     }
 
     #EXP1() {
-        // <EXP1> ::= <PRIMITIVE> (('*' | '/') <PRIMITIVE>)*
+        
         let e1 = this.#PRIMITIVE();
 
         while(this.#match('TK_mul', 'TK_div')) {
@@ -296,17 +297,7 @@ export default class Parser {
     }
 
     #PRIMITIVE() {
-        /*
-        <PRIMITIVE> ::=
-            TK_id    |
-            TK_int   |
-            TK_float |
-            TK_str   |
-            TK_char  |
-            'true'   |
-            'false'  |
-            '(' <EXP> ')'
-        */
+     
 
         if(this.#match('TK_id', 'TK_int', 'TK_float', 'TK_str', 'TK_char', 'KW_true', 'KW_false')) {
             let p = this.#consume('TK_id', 'TK_int', 'TK_float', 'TK_str', 'TK_char', 'KW_true', 'KW_false');
@@ -348,10 +339,10 @@ export default class Parser {
     }
 
     /**
-     * @description Consume un token si coincide con el tipo esperado, registra error en caso contrario.
+     * @description C
      *
-     * @param {...string} types - Tipos de token esperado.
-     * @returns {Token|null} Token consumido o null si no coincide.
+     * @param {...string} types 
+     * @returns {Token|null} T
      */
     #consume(...types) {
         if(this.#match(...types)) {
@@ -362,10 +353,10 @@ export default class Parser {
     }
 
     /**
-     * @description Verifica si el siguiente token coincide con alguno de los tipos especificados (lookahead).
+     * @description 
      *
-     * @param {...string} types - Lista de tipos de token esperados.
-     * @returns {boolean} `true` si coincide alguno, `false` en caso contrario.
+     * @param {...string} types 
+     * @returns {boolean} 
      */
     #match(...types) {
         this.#current_token = this.#sc.look_ahead();

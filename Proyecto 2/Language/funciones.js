@@ -1,6 +1,5 @@
 import { JavaToPythonTranslator } from './main.js';
 
-// funciones.js - Funciones para la interfaz web
 let translator = new JavaToPythonTranslator();
 let editor;
 
@@ -16,7 +15,6 @@ function initEditor() {
         lineWrapping: true
     });
     
-    // Código Java de ejemplo
     editor.setValue(`public class MiPrograma {
     public static void main(String[] args) {
         // Declaraciones
@@ -114,8 +112,7 @@ function simularEjecucion() {
     const resultsContent = document.getElementById('resultsContent');
     
     if (result.success) {
-        // En un entorno real, aquí se ejecutaría el código Python
-        // Por ahora solo mostramos un mensaje simulado
+
         resultsContent.innerHTML = `
             <div class="analisis-summary" style="background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);">
                 <h3>Simulación de Ejecución</h3>
@@ -187,5 +184,5 @@ function salir() {
     }
 }
 
-// Inicializar cuando se cargue la página
+
 document.addEventListener('DOMContentLoaded', initEditor);
