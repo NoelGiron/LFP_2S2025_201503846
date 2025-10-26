@@ -5,3 +5,5 @@ const Type = {
     BOOLEAN: {value: 'boolean',pythonType: 'bool',   defaultValue: 'False',  ord: 3},
     CHAR:    {value: 'char',   pythonType: 'str',    defaultValue: "''",     ord: 4},
 }
+
+export default Type;

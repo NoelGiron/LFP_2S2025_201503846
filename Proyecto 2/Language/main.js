@@ -128,4 +128,5 @@ class JavaToPythonTranslator {
 }
 
 
-window.JavaToPythonTranslator = JavaToPythonTranslator;
+//window.JavaToPythonTranslator = JavaToPythonTranslator;
+export { JavaToPythonTranslator };

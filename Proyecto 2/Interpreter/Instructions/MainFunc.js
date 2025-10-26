@@ -1,4 +1,4 @@
-import Env from "../Generator/Env";
+import Env from "../Generator/Env.js";
 
 export default class MainFunc {
     constructor(line, column, instructions) {
