@@ -1,8 +1,8 @@
 
-import Scanner from './Language/Scanner.js';
-import Parser from './Language/Parser.js';
+import Scanner from './Scanner.js';
+import Parser from './Parser.js';
 import PythonGenerator from '../Interpreter/Generator/PythonGenerator.js';
-import { errors } from './Language/Utils/Errors.js';
+import { errors } from '../Utils/Errors.js';
 
 class JavaToPythonTranslator {
     constructor() {

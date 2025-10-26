@@ -1,4 +1,4 @@
-import Env from "../Generator/Env.js";
+import Env from "../Generator/Env";
 
 export default class Block {
     constructor(line, column, instructions) {

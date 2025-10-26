@@ -1,4 +1,4 @@
-import Character from "../Utils/Character/Character.js";
+import Character from "../Utils/Character/Character.js"
 import { errors } from "../Utils/Errors.js";
 
 
