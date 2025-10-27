@@ -42,16 +42,6 @@ export default class Arithmetic {
         let op2 = this.op2.traducir(env, gen);
         let typeResult;
         if((typeResult = suma[op1.type.ord][op2.type.ord]) !== -1) {
-            if(typeResult === Type.STRING) {
-                if(op1.type !== Type.STRING) {
-                    gen.importFmt();
-                    op1.value = `fmt.Sprint(${op1.value})`
-                }
-                if(op2.type !== Type.STRING) {
-                    gen.importFmt();
-                    op2.value = `fmt.Sprint(${op2.value})`
-                }
-            }
             return {value: `${op1.value} + ${op2.value}`, type: typeResult};
         }
     }

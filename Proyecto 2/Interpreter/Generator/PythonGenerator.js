@@ -46,4 +46,12 @@ export default class PythonGenerator {
         this.indentLevel = 0;
         this.imports.clear();
     }
+
+    newEnv() {
+    
+}
+
+    prevEnv() {
+        
+    }
 }

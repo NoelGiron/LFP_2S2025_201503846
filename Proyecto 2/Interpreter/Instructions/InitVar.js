@@ -2,9 +2,9 @@
 import Type from "../Utils/Type.js";
 
 export default class InitVar {
-    constructor(line, columna, inits) {
+    constructor(line, column, inits) {
         this.line = line;
-        this.columna = columna;
+        this.column = column;
         this.inits = inits;
     }
 

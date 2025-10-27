@@ -1,4 +1,4 @@
-//import { errors } from "../Utils/Errors.js";
+import { errors } from "../Utils/Errors.js";
 import Scanner from "./Scanner.js";
 import Type from "../Interpreter/Utils/Type.js";
 // Expresiones
@@ -11,6 +11,11 @@ import Block from "../Interpreter/Instructions/Block.js";
 import InitVar from "../Interpreter/Instructions/InitVar.js";
 import MainFunc from "../Interpreter/Instructions/MainFunc.js";
 import Print from "../Interpreter/Instructions/Print.js";
+import AssignVar from "../Interpreter/Instructions/AssignVar.js";
+import For from "../Interpreter/Instructions/For.js";
+import If from "../Interpreter/Instructions/If.js";
+import IncrementDecrement from "../Interpreter/Instructions/IncrementDecrement.js";
+import While from "../Interpreter/Instructions/While.js";
 
 
 export default class Parser {
@@ -48,7 +53,7 @@ export default class Parser {
         this.#consume('KW_String');
         this.#consume('TK_lbrack');
         this.#consume('TK_rbrack');
-        this.#consume('TK_id');
+        this.#consume('KW_args');
         this.#consume('TK_rpar');
         this.#consume('TK_lbrc');
 
@@ -73,7 +78,6 @@ export default class Parser {
                 instructions.push(ins);
             } else {
                 let comm = this.#consume('TK_comment', 'TK_single_comment');
-                instructions.push(comm);
             }
         }
         
@@ -135,14 +139,7 @@ export default class Parser {
         let exp = this.#EXP();
         this.#consume('TK_semicolon');
         
-        return {
-            line: id.line,
-            column: id.column,
-            traducir: (env, gen) => {
-                let value = exp.traducir(env, gen);
-                gen.addLine(`${id.lexeme} = ${value.value}`);
-            }
-        };
+        return new AssignVar(id.line, id.column, id.lexeme, exp);
     }
 
     #IF() {
@@ -162,24 +159,7 @@ export default class Parser {
             this.#consume('TK_rbrc');
         }
         
-        return {
-            line: cond.line,
-            column: cond.column,
-            traducir: (env, gen) => {
-                let condition = cond.traducir(env, gen);
-                gen.addLine(`if ${condition.value}:`);
-                gen.indent();
-                thenBlock.forEach(inst => inst.traducir(env, gen));
-                gen.dedent();
-                
-                if(elseBlock) {
-                    gen.addLine(`else:`);
-                    gen.indent();
-                    elseBlock.forEach(inst => inst.traducir(env, gen));
-                    gen.dedent();
-                }
-            }
-        };
+        return new If(cond.line, cond.column, cond, thenBlock, elseBlock);
     }
 
     #FOR() {
@@ -195,21 +175,14 @@ export default class Parser {
         let body = this.#SENTENCIAS();
         this.#consume('TK_rbrc');
         
-        return {
-            line: init.line,
-            column: init.column,
-            traducir: (env, gen) => {
-             
-                init.traducir(env, gen);
-                let condition = cond.traducir(env, gen);
-                gen.addLine(`while ${condition.value}:`);
-                gen.indent();
-                body.forEach(inst => inst.traducir(env, gen));
-             
-                gen.addLine(`${update.lexeme} ${updateOp.type === 'TK_inc' ? '+' : '-'}= 1`);
-                gen.dedent();
-            }
-        };
+        let incrementInstruction = new IncrementDecrement(
+            update.line, 
+            update.column, 
+            update.lexeme, 
+            updateOp.type === 'TK_inc' ? '++' : '--'
+        );
+        
+        return new For(init.line, init.column, init, cond, incrementInstruction, body);
     }
 
     #WHILE() {
@@ -221,17 +194,7 @@ export default class Parser {
         let body = this.#SENTENCIAS();
         this.#consume('TK_rbrc');
         
-        return {
-            line: cond.line,
-            column: cond.column,
-            traducir: (env, gen) => {
-                let condition = cond.traducir(env, gen);
-                gen.addLine(`while ${condition.value}:`);
-                gen.indent();
-                body.forEach(inst => inst.traducir(env, gen));
-                gen.dedent();
-            }
-        };
+        return new While(cond.line, cond.column, cond, body);
     }
 
     #PRINT() {

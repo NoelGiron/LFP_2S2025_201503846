@@ -8,13 +8,9 @@ export default class MainFunc {
     }
 
     traducir(env, gen) {
-        const localEnv = new Env(env, env.name);
-        gen.addLine("func main() {");
-        gen.newEnv();
+        const localEnv = new Env(env, "main");
         for(const inst of this.instructions) {
             inst.traducir(localEnv, gen);
         }
-        gen.prevEnv();
-        gen.addLine("}");
     }
 }

@@ -51,7 +51,7 @@ export default class Scanner {
             while: 'KW_while',
             System: 'KW_System',
             out: 'KW_out',
-            println: 'KW_println'
+            println: 'KW_println',
         };
     }
 
@@ -135,7 +135,7 @@ export default class Scanner {
                 return this.#S15();
             }
 
-            // !=
+            // // !=
             if(this.#next_char === '!') {
                 this.#initBuffer(this.#next_char);
                 /** @type {Token} */
@@ -155,7 +155,7 @@ export default class Scanner {
                 return this.#S21();
             }
 
-            // *
+            // // *
             if(this.#next_char === '*') {
                 this.#initBuffer(this.#next_char);
                 return this.#S23();
@@ -201,6 +201,24 @@ export default class Scanner {
             if(this.#next_char === ',') {
                 this.#initBuffer(this.#next_char);
                 return this.#S34();
+            }
+
+            // [
+            if(this.#next_char === '[') {
+                this.#initBuffer(this.#next_char);
+                return this.#S35(); // Nuevo estado para [
+            }
+
+            // ]
+            if(this.#next_char === ']') {
+                this.#initBuffer(this.#next_char);
+                return this.#S36(); // Nuevo estado para ]
+            }
+
+            // .
+            if(this.#next_char === '.') {
+                this.#initBuffer(this.#next_char);
+                return this.#S37(); // Nuevo estado para .
             }
 
             // CARACTERES IGNORADOS
@@ -578,6 +596,27 @@ export default class Scanner {
      */
     #S34() {
         return { lexeme: this.#buffer, type: 'TK_comma', line: this.#char_line, column: this.#char_col };
+    }
+
+    /**
+     * @returns {Token} Token reconocido.
+     */
+    #S35() {
+        return { lexeme: this.#buffer, type: 'TK_lbrack', line: this.#char_line, column: this.#char_col };
+    }
+
+    /**
+     * @returns {Token} Token reconocido.
+     */
+    #S36() {
+        return { lexeme: this.#buffer, type: 'TK_rbrack', line: this.#char_line, column: this.#char_col };
+    }
+
+    /**
+     * @returns {Token} Token reconocido.
+     */
+    #S37() {
+        return { lexeme: this.#buffer, type: 'TK_dot', line: this.#char_line, column: this.#char_col };
     }
 
     /**

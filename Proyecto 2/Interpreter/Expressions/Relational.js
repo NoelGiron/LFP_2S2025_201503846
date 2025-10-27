@@ -1,6 +1,6 @@
 import Type from "../Utils/Type.js";
 
-export default class Arithmetic {
+export default class Relational {
     constructor(line, column, op1, sign, op2) {
         this.line = line;
         this.column = column;

@@ -184,5 +184,12 @@ function salir() {
     }
 }
 
-
+window.generarTraduccion = generarTraduccion;
+window.verTokens = verTokens;
+window.simularEjecucion = simularEjecucion;
+window.limpiarEditor = limpiarEditor;
+window.cargarArchivo = cargarArchivo;
+window.guardarJava = guardarJava;
+window.guardarPython = guardarPython;
+window.salir = salir;
 document.addEventListener('DOMContentLoaded', initEditor);
